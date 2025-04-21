@@ -1,13 +1,13 @@
 from typing import Callable
 from functools import wraps
 
-unique_calls = {}
-
 
 def cache(func: Callable) -> Callable:
+    unique_calls = {}
+
     @wraps(func)
     def wrapper(*args, **kwargs) -> int:
-        func_call = (func, args, tuple(sorted(kwargs.items())))
+        func_call = (args, tuple(sorted(kwargs.items())))
 
         if func_call in unique_calls:
             print("Getting from cache")
